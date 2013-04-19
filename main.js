@@ -38,13 +38,14 @@ window.addEventListener("DOMContentLoaded", function(){ //attached to window obj
 		styleLi.appendChild(styleSelect);
 	}
 
+	//checkbox values
 	function getPepperoniValue(){
 		if($("pepperoni").checked){
 			pepperoniValue = ("pepperoni").value;
 		}else{
 			pepperoniValue = "No";
 		}
-	}
+	};
 
 	function getSausageValue(){
 		if($("sausage").checked){
@@ -52,7 +53,7 @@ window.addEventListener("DOMContentLoaded", function(){ //attached to window obj
 		}else{
 			sausageValue = "No";
 		}
-	}
+	};
 
 	function getHamValue(){
 		if($("ham").checked){
@@ -60,7 +61,7 @@ window.addEventListener("DOMContentLoaded", function(){ //attached to window obj
 		}else{
 			hamValue = "No";
 		}
-	}
+	};
 
 	function getGPValue(){
 		if($("green peppers").checked){
@@ -68,7 +69,7 @@ window.addEventListener("DOMContentLoaded", function(){ //attached to window obj
 		}else{
 			gpValue = "No";
 		}
-	}
+	};
 
 	function getBPValue(){
 		if($("banana peppers").checked){
@@ -76,7 +77,7 @@ window.addEventListener("DOMContentLoaded", function(){ //attached to window obj
 		}else{
 			bpValue = "No";
 		}
-	}
+	};
 
 	function getBaconValue(){
 		if($("bacon").checked){
@@ -84,7 +85,7 @@ window.addEventListener("DOMContentLoaded", function(){ //attached to window obj
 		}else{
 			baconValue = "No";
 		}
-	}
+	};
 
 	function getFCValue(){
 		if($("feta cheese").checked){
@@ -92,18 +93,18 @@ window.addEventListener("DOMContentLoaded", function(){ //attached to window obj
 		}else{
 			fcValue = "No";
 		}
-	}
+	};
 
 	function toggleControls(n){
 		switch(n){
 			case "on":
-				$("contactForm").style.display = "none";
+				$("customPizza").style.display = "none";
 				$("clear").style.display = "inline";
 				$("displayLink").style.display = "none";
 				$("addNew").style.display = "inline";
 				break;
 			case "off":
-				$("contactForm").style.display = "block";
+				$("customPizza").style.display = "block";
 				$("clear").style.display = "inline";
 				$("displayLink").style.display = "inline";
 				$("addNew").style.display = "none";
@@ -114,20 +115,89 @@ window.addEventListener("DOMContentLoaded", function(){ //attached to window obj
 		}
 	}
 
+	function storeData(){
+		var id 				= Math.floor(Math.random()*100000001);
+		//Gather up all our form field values and store in an object
+		//object properties contain array with the form label and input value.
+		getPepperoniValue();
+		var item 			= {};
+			item.pizzasize  = ["Size: ", $("sizes").value];
+			item.pepperoni	= ["Pepperoni: ", pepperoniValue];
+			item.sausage	= ["Sausage: ", sausageValue];
+			item.ham		= ["Ham: ", hamValue];
+			item.gp			= ["Green Peppers: ", gpValue];
+			item.bp			= ["Banana Peppers: ", bpValue];
+			item.bacon		= ["Bacon: ", baconValue];
+			item.fc			= ["Feta Cheese: ", fcValue];
+			item.sauce		= ["Sauce: ", $("sauce").value];
+			item.date		= ["Delivery Date: ", $("date").value];
+			item.comments	= ["Additional Comments: ", $("comments").value];
+		//Save data into local storage: Use Stringify to convert our object to a string.
+		localStorage.setItem(id, JSON.stringify(item));
+		alert("Pizza Saved!");
+	}
 
-//var defaults
-var pizzaSizes = ["--Choose A Size--", "Small ($5.00)", "Medium ($7.50)", "Large ($10.00"],
-	pizzaStyles = ["--Choose A Style--", "Deep Dish", "Classic", "Thin Crust"],
-	pepperoniValue = "No",
-	sausageValue = "No",
-	hamValue = "No",
-	gpValue = "No",
-	bpValue = "No",
-	baconValue = "No",
-	fcValue = "No"
-;
-pizzaSize();
-pizzaStyle();
+		//function to write data from local storage to the browser.
+	function getData(){
+		toggleControls("on");
+		if(localStorage.length === 0){
+			alert("There is no data in local storage.");
+		}
+		var makeDiv = document.createElement("div");
+		makeDiv.setAttribute("id", "items");
+		var makeList = document.createElement("ul");
+		makeDiv.appendChild(makeList);
+		document.body.appendChild(makeDiv);
+		$("items").style.display = "block";
+		for(var i=0, len=localStorage.length; i<len; i++){
+			var makeli = document.createElement("li");
+			makeList.appendChild(makeli);
+			var key = localStorage.key(i);
+			var value = localStorage.getItem(key);
+			//convert string from local storage value back to an object by using JSON.parse()
+			var obj = JSON.parse(value);
+			var makeSubList = document.createElement("ul");
+			makeli.appendChild(makeSubList);
+			for (var n in obj){
+				var makeSubli = document.createElement("li");
+				makeSubList.appendChild(makeSubli);
+				var optSubText = obj[n][0]+" "+obj[n][1];
+				makeSubli.innerHTML = optSubText;
+			}
+		}
+	}
+
+	function clearLocal(){
+		if(localStorage.length === 0){
+			alert("There is no data to clear.")
+		}else{
+			localStorage.clear();
+			alert("All contacts are deleted.");
+			window.location.reload();
+			return false;
+		}
+	}
+
+	//var defaults
+	var pizzaSizes = ["--Choose A Size--", "Small ($5.00)", "Medium ($7.50)", "Large ($10.00"],
+		pizzaStyles = ["--Choose A Style--", "Deep Dish", "Classic", "Thin Crust"],
+		pepperoniValue = "No",
+		sausageValue = "No",
+		hamValue = "No",
+		gpValue = "No",
+		bpValue = "No",
+		baconValue = "No",
+		fcValue = "No"
+	;
+	pizzaSize();
+	pizzaStyle();
+
+	var displayLink = $("displayLink");
+	displayLink.addEventListener("click", getData);
+	var clearLink = $("clear");
+	clearLink.addEventListener("click", clearLocal);
+	var save = $("submit");
+	save.addEventListener("click", storeData);
 
 
 });
