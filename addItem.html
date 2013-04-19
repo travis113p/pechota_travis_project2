@@ -1,0 +1,59 @@
+
+	<body>
+		<section>
+			<form action="" method="post">
+				<fieldset>
+					<legend><strong>Customize It:</strong></legend>
+					<ul>
+						<li> <!--dropdown-->
+							<label for="size">Choose Your Pizza Size:</label>
+							<select id="size">
+								<option value="Small">Small</option>
+								<option value="Medium">Medium</option>
+								<option value="Large">Large</option>
+							</select>
+						</li>
+						<li> <!--dropdown-->
+							<label for="style">Style?:</label>
+							<select id="style">
+								<option value="Deep Dish">Deep Dish</option>
+								<option value="Classic">Classic</option>
+								<option value="Thin Crust">Thin Crust</option>
+							</select>
+						</li>
+						<!--choose your topping checkboxes-->
+						<li>Choose Your Toppings (Pick up to 3, $0.50 for each extra selection): 
+							<ul>
+								<li><input type="checkbox" value="Pepperoni" id="pepperoni" /><label for="pepperoni">Pepperoni</label></li>
+								<li><input type="checkbox" value="Sausage" id="sausage" /><label for="sausage">Sausage</label></li>
+								<li><input type="checkbox" value="Ham" id="ham" /><label for="ham">Ham</label></li>
+								<li><input type="checkbox" value="Green Peppers" id="green peppers" /><label for="green peppers">Green Peppers</label></li>	
+								<li><input type="checkbox" value="Banana Peppers" id="banana peppers" /><label for="banana peppers">Banana Peppers</label></li>	
+								<li><input type="checkbox" value="Bacon" id="bacon" /><label for="bacon">Bacon</label></li>	
+								<li><input type="checkbox" value="Feta Cheese" id="feta cheese" /><label for="feta cheese">Feta Cheese</label></li>	
+							</ul>
+						</li>
+						<li> <!-- sawce slider-->
+							<label for="sauce">Select Sauce Amount (Left, none; Right, extra):</label>
+							<br>
+							<input type="range" name="sauce" min="0" max="10">
+						</li>
+						<!--calendar delivery date-->
+						<li><label for="calDate">Date</label>
+							<input type="text" name="calDate" id="calDate" size="18" />
+							<div id="calendar"></div></li>
+						<!--additional comments-->
+						<li><label for="comments">Enter Additional Comments or Instructions:</label>
+						<textarea id="comments">Enter Info Here.</textarea></li>
+						<li><input type="hidden" value="true"/>
+						</li>
+					</ul>
+				</fieldset>
+				<!--submit button-->
+				<input type="submit" value="Is that all?"/>
+			</form>
+			<a href="#">Clear Stored Data</a>
+			<a href="#">Display Data</a>
+		</section>
+	</body>
+</html>
