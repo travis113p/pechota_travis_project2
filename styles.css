@@ -1,16 +1,23 @@
+/*
+Travis Pechota
+Project 2
+VFW 1304
+*/
+
+
 *{margin: 0; padding: 0;border: 0;}
 
 body {
-	background: #f6f6f6;
+	background: #DCFFE6;
 	width: 360px;
 	margin: 25px auto;
-	font-family: Helvetica;
+	font-family: Arial;
 	line-height: 1.4em;
 }
 
-hgroup{
-	border-bottom: 1px dotted gray;
-	padding-bottom: 25px;
+h1{
+	border-bottom: 1px solid gray;
+	padding-bottom: 30px;
 	margin-bottom: 30px;
 }
 
@@ -20,14 +27,24 @@ h2{
 	color: green;
 }
 
-p, form{margin-bottom: 15px;}
-ul{margin:0 0 15px 20px;}
 
-input[type="text"]{
+
+label{
+	display: block;
+}
+
+input[type="text"], input[type="date"], select{
 	border: 1px solid black;
 	padding: 5px;
 	width: 200px;
+	margin-bottom: 25px;
 }
+
+input[type="checkbox"]{
+	margin-bottom: 25px;
+}
+
+
 input[type="button"]{
 	padding: 5px;
 	background: gray;
@@ -35,6 +52,12 @@ input[type="button"]{
 	border: 1px solid black;
 }
 
-.even{background: #fff;}
+input[type="checkbox"] + label, input[type="radio"] + label{display: inline;}
 
-.newColor{background: yellow;}
+textarea{width: 250px; height: 150px;border: 1px solid black;};
+
+button{font-size:1.4em;display:block;border-radius:5px;padding: 15px; color:#fff; margin:0;}
+
+button:hover{background:green;}
+
+fieldset{padding:25px 0 0 0;}
